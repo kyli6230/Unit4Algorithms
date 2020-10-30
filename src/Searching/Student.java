@@ -12,8 +12,8 @@ public class Student implements Comparable {
     }
     
     public String toString(){
-        return "Name:\t\t" + name + "\nAddress:\t" + address +
-                "\nID:\t\t" + id;
+        return "Name:\t" + name + "\nAddress:\t" + address +
+                "\nID:\t" + id + "\n----------------------------------\n";
     }
     
     public int getID(){

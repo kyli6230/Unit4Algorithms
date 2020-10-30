@@ -6,50 +6,43 @@ import java.util.Scanner;
 
 public class IssStudent extends javax.swing.JFrame {
 
-    
+    Student iss[] = new Student[100];
+
     public IssStudent() {
         initComponents();
         String name, add;
         int id;
-        Student iss[] = new Student[100];
-        try{
-            Scanner scan = new Scanner (new File("studata.txt"));
-            for (int i = 0; i < 100; i++) {
+
+        try {
+            Scanner scan = new Scanner(new File("src/Sorting/studata.txt"));
+            for (int z = 0; z < 100; z++) {
                 name = scan.nextLine();
                 add = scan.nextLine();
                 id = Integer.parseInt(scan.nextLine());
-                iss[i] = new Student(name,add,id);
-                System.out.println(iss[i]);
+                iss[z] = new Student(name, add, id);
+                // display.append(iss[z].toString());
             }
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println(e);
         }
-        
-        int id2 = Integer.parseInt(txtid.getText());
-        Student temp = new Student(null,null,id2);
-        
-        int result = search(iss,temp); //call search method here
-        if (result >= 0) // you have a matching location
-            display.setText(iss[result].toString());
-        else //you get back a -1
-            display.setText("Student not found");        
     }
-    
-    public static int search (Object[] a, Object searchValue){
-	   int left = 0;
-	   int right = a.length-1;
-	   while (left <= right){
-	      int midpoint = (left + right) / 2;
-	      int result = ((Comparable)a[midpoint]).compareTo(searchValue); 
-	      if (result == 0)
-	         return midpoint;
-	      else if (result < 0)
-	         left = midpoint + 1;
-	      else
-	         right = midpoint-1;
-	   }
-	   return -1;		   
-}
+
+    public static int search(Object[] a, Object searchValue) {
+        int left = 0;
+        int right = a.length - 1;
+        while (left <= right) {
+            int midpoint = (left + right) / 2;
+            int result = ((Comparable) a[midpoint]).compareTo(searchValue);
+            if (result == 0) {
+                return midpoint;
+            } else if (result < 0) {
+                left = midpoint + 1;
+            } else {
+                right = midpoint - 1;
+            }
+        }
+        return -1;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -64,8 +57,24 @@ public class IssStudent extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+
+        txtid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtidActionPerformed(evt);
+            }
+        });
 
         display.setColumns(20);
         display.setRows(5);
@@ -102,6 +111,34 @@ public class IssStudent extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+
+        int id2 = Integer.parseInt(txtid.getText());
+        Student temp = new Student(null, null, id2);
+
+        int result = search(iss, temp); //call search method here
+        if (result >= 0) // you have a matching location
+        {
+            display.setText(iss[result].toString());
+        } else //you get back a -1
+        {
+            display.setText("Student not found");
+        }
+
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        // TODO add your handling code here:
+        display.setText("");
+        txtid.setText("");
+        
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void txtidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtidActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
