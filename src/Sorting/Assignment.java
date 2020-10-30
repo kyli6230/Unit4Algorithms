@@ -233,44 +233,42 @@ public class Assignment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertionActionPerformed
+        long startTime = System.currentTimeMillis();//start the timer
         insertionSort(nums);
         list.clear();
         for (int x : nums) { //read only for loop
             list.addElement(x);
         }
         turnOff();
+        long elapsedTime = System.currentTimeMillis() - startTime;
+        lblTime.setText(elapsedTime + "ms");
     }//GEN-LAST:event_btnInsertionActionPerformed
 
     private void btnSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectionActionPerformed
+        long startTime = System.currentTimeMillis();//start the timer
         selectionSort(nums);
         list.clear();
         for (int x : nums) { //read only for loop
             list.addElement(x);
         }
         turnOff();
+        long elapsedTime = System.currentTimeMillis() - startTime;
+        lblTime.setText(elapsedTime + "ms");
     }//GEN-LAST:event_btnSelectionActionPerformed
 
     private void btnBubbleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBubbleActionPerformed
+        long startTime = System.currentTimeMillis();//start the timer
         bubbleSort(nums);
         list.clear();
         for (int x : nums) { //read only for loop
             list.addElement(x);
         }
         turnOff();
+        long elapsedTime = System.currentTimeMillis() - startTime;
+        lblTime.setText(elapsedTime + "ms");
     }//GEN-LAST:event_btnBubbleActionPerformed
 
-    public void turnOn(){
-        btnBubble.setEnabled(true);
-        btnInsertion.setEnabled(true);
-        btnSelection.setEnabled(true);
-    }
-    
-    public void turnOff(){
-        btnBubble.setEnabled(false);
-        btnInsertion.setEnabled(false);
-        btnSelection.setEnabled(false);
-    }
-    
+ 
     private void btnGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateActionPerformed
         list.clear();
         for (int i = 0; i < nums.length; i++) {
@@ -281,6 +279,7 @@ public class Assignment extends javax.swing.JFrame {
             list.addElement(x);
         }
         turnOn();
+        lblTime.setText("");
     }//GEN-LAST:event_btnGenerateActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
@@ -289,16 +288,57 @@ public class Assignment extends javax.swing.JFrame {
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         list.clear();
+        lblTime.setText("");
         turnOff();
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnRecursionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecursionActionPerformed
-        bubbleSort(nums);
+        long startTime = System.currentTimeMillis();//start the timer
+        quickSort(nums, 0, nums.length - 1);
         list.clear();
         for (int x : nums) { //read only for loop
             list.addElement(x);
         }
         turnOff();
+        long elapsedTime = System.currentTimeMillis() - startTime;
+        lblTime.setText(elapsedTime + "ms");
+    }
+        
+    public void turnOn(){
+        btnBubble.setEnabled(true);
+        btnInsertion.setEnabled(true);
+        btnSelection.setEnabled(true);
+        btnRecursion.setEnabled(true);
+    }
+    
+    public void turnOff(){
+        btnBubble.setEnabled(false);
+        btnInsertion.setEnabled(false);
+        btnSelection.setEnabled(false);
+        btnRecursion.setEnabled(false);
+    }
+    
+    public void quickSort(int[] a, int left, int right){
+        
+        if (left >= right) return;
+        int i = left;
+        int j = right;
+        int pivotValue = a[(left + right) / 2];
+        while (i < j){
+            while (a[i] < pivotValue) i++;
+            while (pivotValue < a[j]) j--;
+            if (i <= j){
+                int temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+                i++;
+                j--;
+            }
+        }
+        quickSort(a,left,j);
+        quickSort(a,i,right);
+        
+        
     }//GEN-LAST:event_btnRecursionActionPerformed
 
     public static void bubbleSort(int[] a){
@@ -412,8 +452,6 @@ public static void insertionSort(int a[]){
             }
         });
     }
-
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBubble;
